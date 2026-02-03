@@ -136,13 +136,20 @@ The experience evolves into a full platform featuring business networking, growt
 <section id="signup" class="py-20 px-6 fade-in">
 <h2 class="text-3xl font-bold text-center mb-8">Ready to Elevate?</h2>
 
-<form class="max-w-xl mx-auto space-y-4">
-<input type="text" placeholder="Name" class="w-full p-3 border rounded-lg" required>
-<input type="email" placeholder="Email" class="w-full p-3 border rounded-lg" required>
-<textarea placeholder="Why join? (Optional)" class="w-full p-3 border rounded-lg"></textarea>
+<form class="max-w-xl mx-auto space-y-4" action="https://formsubmit.co/jimmymanalel@gmail.com" method="POST" id="signup-form">
+<input type="hidden" name="_subject" value="New Elevate444 Signup!">
+<input type="hidden" name="_captcha" value="false">
+
+<input type="text" name="name" placeholder="Name" class="w-full p-3 border rounded-lg" required>
+<input type="email" name="email" placeholder="Email" class="w-full p-3 border rounded-lg" required>
+<textarea name="reason" placeholder="Why join? (Optional)" class="w-full p-3 border rounded-lg"></textarea>
 
 <button class="w-full bg-black text-white py-3 rounded-xl hover:bg-gray-800 transition">Sign Up Now</button>
 </form>
+
+<p id="signup-success" class="max-w-xl mx-auto mt-4 text-center text-sm text-green-700 hidden">
+Thanks for signing up! Check your inbox to confirm your email.
+</p>
 
 <p class="text-center mt-4 text-sm text-gray-500">
 Your data is safe. We’ll only use it for launch updates.
@@ -161,6 +168,33 @@ Your data is safe. We’ll only use it for launch updates.
 
 <p class="text-sm">© 2026 Elevate444. All rights reserved.</p>
 </footer>
+
+<script>
+const signupForm = document.getElementById('signup-form');
+const signupSuccess = document.getElementById('signup-success');
+
+if (signupForm && signupSuccess) {
+  signupForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    try {
+      const response = await fetch(signupForm.action, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json'
+        },
+        body: new FormData(signupForm)
+      });
+
+      if (response.ok) {
+        signupForm.reset();
+        signupSuccess.classList.remove('hidden');
+      }
+    } catch (error) {
+      // Silent fail keeps the main CTA flow clean.
+    }
+  });
+}
+</script>
 
 </body>
 </html>
