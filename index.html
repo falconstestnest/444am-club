@@ -178,18 +178,24 @@ if (signupForm && signupSuccess) {
   signupForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     try {
+      const formData = new FormData(signupForm);
+      const sheetsPayload = new URLSearchParams();
+      for (const [key, value] of formData.entries()) {
+        sheetsPayload.append(key, value);
+      }
+
       const response = await fetch(signupForm.action, {
         method: 'POST',
         headers: {
           'Accept': 'application/json'
         },
-        body: new FormData(signupForm)
+        body: formData
       });
 
       fetch(sheetsEndpoint, {
         method: 'POST',
         mode: 'no-cors',
-        body: new FormData(signupForm)
+        body: sheetsPayload
       });
 
       if (response.ok) {
