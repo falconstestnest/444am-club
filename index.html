@@ -172,6 +172,7 @@ Your data is safe. We’ll only use it for launch updates.
 <script>
 const signupForm = document.getElementById('signup-form');
 const signupSuccess = document.getElementById('signup-success');
+const sheetsEndpoint = 'https://script.google.com/macros/s/AKfycbzI1oIFgkFoIklhMAPkxOmDydebWWksLmMmn0wNwg4sp5vxEr3wrby3ARr4Mg58yNPR/exec';
 
 if (signupForm && signupSuccess) {
   signupForm.addEventListener('submit', async (event) => {
@@ -182,6 +183,12 @@ if (signupForm && signupSuccess) {
         headers: {
           'Accept': 'application/json'
         },
+        body: new FormData(signupForm)
+      });
+
+      fetch(sheetsEndpoint, {
+        method: 'POST',
+        mode: 'no-cors',
         body: new FormData(signupForm)
       });
 
