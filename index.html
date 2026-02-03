@@ -195,7 +195,10 @@ if (signupForm && signupSuccess) {
       fetch(sheetsEndpoint, {
         method: 'POST',
         mode: 'no-cors',
-        body: sheetsPayload
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: sheetsPayload.toString()
       });
 
       if (response.ok) {
