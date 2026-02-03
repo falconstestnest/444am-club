@@ -1,0 +1,6 @@
+name = "4:44 AM club"
+
+[setup]
+script = """
+echo "Environment ready"
+"""
